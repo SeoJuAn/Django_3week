@@ -1,0 +1,37 @@
+
+{% extends 'base.html'%}
+{% block content%}
+  {% for blog in posts%}
+      <br>
+      <br>
+      <div class="container h-100">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+          <div class="card" style="width: 70rem;">
+              <div class="card-header">
+                  {{blog.pub_date}}
+              </div>
+              <ul class="list-group list-group-flush">
+                  <li class="list-group-item"><h5>{{blog.title}}</h5></li>
+                  <li class="list-group-item"><p>{{blog.summary}}<a href="{% url 'detail' blog.id %}">...more</a></p></li>
+              </ul>
+          </div>
+        </div>
+      </div>
+  {% endfor %}
+
+  {% if posts.has_previous %}
+    <a href="?page=1">First</a>
+    <a href="?page={{posts.previous_page_number}}">Previous</a>
+  {%endif%}
+  
+  <span>{{posts.number}}</span>
+  <span>of</span>
+  <span>{{posts.paginator.num_pages}}</span>
+
+  {%if posts.has_next%}
+      <a href="?page={{posts.next_page_number}}">Next</a>
+      <a href="?page={{posts.paginator.num_pages}}">Last</a>
+  {%endif%}
+{%endblock%}
+
+
